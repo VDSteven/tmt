@@ -13,7 +13,7 @@ import java.util.Objects;
  * A WorkDay.
  */
 @Entity
-@Table(name = "work_day")
+@Table(name = "work_day", uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "project_id", "day"}))
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class WorkDay implements Serializable {
 

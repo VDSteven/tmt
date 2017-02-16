@@ -12,7 +12,7 @@ import java.util.Objects;
  * A IsSubsidiaryOf.
  */
 @Entity
-@Table(name = "is_subsidiary_of")
+@Table(name = "is_subsidiary_of", uniqueConstraints = @UniqueConstraint(columnNames = {"subsidiary_id", "employee_id"}))
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class IsSubsidiaryOf implements Serializable {
 

@@ -12,7 +12,7 @@ import java.util.Objects;
  * A IsHeadOf.
  */
 @Entity
-@Table(name = "is_head_of")
+@Table(name = "is_head_of", uniqueConstraints = @UniqueConstraint(columnNames = {"head_id", "employee_id"}))
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class IsHeadOf implements Serializable {
 
