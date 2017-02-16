@@ -6,6 +6,7 @@ import com.steven.tmt.domain.User;
 import com.steven.tmt.domain.WorkDay;
 import com.steven.tmt.repository.WorkDayRepository;
 import com.steven.tmt.security.SecurityUtils;
+import com.sun.xml.internal.ws.api.pipe.FiberContextSwitchInterceptor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
@@ -125,7 +126,6 @@ public class WorkDayService {
     @Transactional(readOnly = true)
     public List<WorkDay> findAllForHead() {
         log.debug("Request to get all WorkDays for head");
-        Optional<User> currentUser = userService.getUserWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin());
         List<IsHeadOf> isHeadOfs = isHeadOfService.findByHeadIsCurrentUser();
 
         List<Long> userIds = new ArrayList<>();
@@ -134,7 +134,12 @@ public class WorkDayService {
         }
         userIds = userIds.stream().distinct().collect(Collectors.toList());
 
-        List<WorkDay> result = workDayRepository.findByUserIdInAndHoursApprovedOrExpensesApproved(userIds, false, false);
+        List<WorkDay> result;
+        if (userIds.size() == 0) {
+            result = new ArrayList<>();
+        } else {
+            result = workDayRepository.findByUserIdInAndHoursApprovedOrExpensesApproved(userIds, false, false);
+        }
 
         return result;
     }
