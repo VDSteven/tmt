@@ -343,3 +343,17 @@ ui bootstrap tweaks
 
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+/* ==========================================================================
+custom changes
+========================================================================== */
+#statsForm {
+    .btn-primary {
+        margin-top: 12px;
+    }
+    @media screen and (min-width: 768px) {
+        .btn-primary {
+            margin-top: 24px;
+        }
+    }
+}

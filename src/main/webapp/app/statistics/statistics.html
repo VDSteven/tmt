@@ -1,0 +1,67 @@
+<div>
+    <h2>Work days statistics</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <form id="statsForm" name="statsForm" role="form" novalidate ng-submit="vm.loadStats()" show-validation>
+                <div class="col-xs-12 col-sm-3">
+                    <label for="year">Year</label>
+                    <input type="number" class="form-control" id="year" name="year"
+                           ng-model="vm.Request.year" min="0" required/>
+                    <div ng-show="statsForm.year.$invalid">
+                        <p class="help-block"
+                           ng-show="statsForm.year.$error.required">
+                            This field is required.
+                        </p>
+                        <p class="help-block"
+                           ng-show="statsForm.year.$error.min" translate-value-min="0">
+                            This field should be at least 0.
+                        </p>
+                        <p class="help-block"
+                           ng-show="statsForm.year.$error.number">
+                            This field should be a number.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <label for="field_user">Employee</label>
+                    <select class="form-control" id="field_user" name="userId" ng-model="vm.Request.user" ng-options="user as user.login for user in vm.Users track by user.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <label for="field_project">Project</label>
+                    <select class="form-control" id="field_project" name="project" ng-model="vm.Request.project" ng-options="project as project.name for project in vm.Projects track by project.id">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    <button type="submit" ng-disabled="statsForm.$invalid || vm.isLoading" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+            <tr>
+                <th><span>Months</span></th>
+                <th><span>Holidays</span></th>
+                <th><span>Hours</span></th>
+                <th><span>Expenses</span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="statistic in vm.Statistics track by statistic.monthNumber">
+                <td><span>{{vm.monthNumberToName(statistic.monthNumber)}}</span></td>
+                <td><span>{{statistic.holidays}}</span></td>
+                <td><span>{{statistic.hours}}</span></td>
+                <td><span>{{statistic.expenses}}</span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
