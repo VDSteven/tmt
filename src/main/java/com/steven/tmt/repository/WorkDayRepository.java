@@ -15,4 +15,5 @@ public interface WorkDayRepository extends JpaRepository<WorkDay,Long> {
     @Query("select workDay from WorkDay workDay where workDay.user.login = ?#{principal.username}")
     List<WorkDay> findByUserIsCurrentUser();
 
+    List<WorkDay> findByUserIdIn(List<Long> userIdList);
 }

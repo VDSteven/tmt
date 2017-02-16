@@ -1,6 +1,7 @@
 package com.steven.tmt.service;
 
 import com.steven.tmt.domain.Authority;
+import com.steven.tmt.domain.IsSubsidiaryOf;
 import com.steven.tmt.domain.User;
 import com.steven.tmt.repository.AuthorityRepository;
 import com.steven.tmt.repository.PersistentTokenRepository;
@@ -40,11 +41,20 @@ public class UserService {
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, PersistentTokenRepository persistentTokenRepository, AuthorityRepository authorityRepository) {
+    private final IsSubsidiaryOfService isSubsidiaryOfService;
+
+    public UserService(
+        UserRepository userRepository,
+        PasswordEncoder passwordEncoder,
+        PersistentTokenRepository persistentTokenRepository,
+        AuthorityRepository authorityRepository,
+        IsSubsidiaryOfService isSubsidiaryOfService)
+    {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.persistentTokenRepository = persistentTokenRepository;
         this.authorityRepository = authorityRepository;
+        this.isSubsidiaryOfService = isSubsidiaryOfService;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -193,7 +203,7 @@ public class UserService {
         });
     }
 
-    @Transactional(readOnly = true)    
+    @Transactional(readOnly = true)
     public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
         return userRepository.findAll(pageable).map(UserDTO::new);
     }
@@ -245,5 +255,19 @@ public class UserService {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> getAllSubsidiaryUsers() {
+        Optional<User> currentUser = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+        List<IsSubsidiaryOf> isSubsidiaryOfs = isSubsidiaryOfService.findBySubsidiaryIsCurrentUser();
+
+        List<User> users = new ArrayList<>();
+        users.add(currentUser.get());
+        for (IsSubsidiaryOf isSubsidiaryOf : isSubsidiaryOfs) {
+            users.add(isSubsidiaryOf.getEmployee());
+        }
+
+        return users;
     }
 }

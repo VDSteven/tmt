@@ -1,40 +1,40 @@
 
 <div>
-    <h2><span>Work Day</span> {{vm.workDay.id}}</h2>
+    <h2><span>Work Day:</span> {{vm.workDay.day | date:'mediumDate'}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row jh-entity-details">
-        <dt><span>Day</span></dt>
-        <dd>
-            <span>{{vm.workDay.day | date:'mediumDate'}}</span>
-        </dd>
-        <dt><span>Is Holiday</span></dt>
-        <dd>
-            <span>{{vm.workDay.isHoliday}}</span>
-        </dd>
-        <dt><span>Hours</span></dt>
-        <dd>
-            <span>{{vm.workDay.hours}}</span>
-        </dd>
-        <dt><span>Hours Approved</span></dt>
-        <dd>
-            <span>{{vm.workDay.hoursApproved}}</span>
-        </dd>
-        <dt><span>Expenses</span></dt>
-        <dd>
-            <span>{{vm.workDay.expenses}}</span>
-        </dd>
-        <dt><span>Expenses Approved</span></dt>
-        <dd>
-            <span>{{vm.workDay.expensesApproved}}</span>
-        </dd>
         <dt><span>User</span></dt>
         <dd>
             {{vm.workDay.user.login}}
         </dd>
         <dt><span>Project</span></dt>
         <dd>
-            <a ui-sref="project-detail({id:vm.workDay.project.id})">{{vm.workDay.project.name}}</a>
+            {{vm.workDay.project.name}}
+        </dd>
+        <dt><span>Day</span></dt>
+        <dd>
+            <span>{{vm.workDay.day | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span>Is Holiday</span></dt>
+        <dd>
+            <span>{{vm.workDay.isHoliday || false}}</span>
+        </dd>
+        <dt><span>Hours</span></dt>
+        <dd>
+            <span>{{vm.workDay.hours || 0}}</span>
+        </dd>
+        <dt><span>Hours Approved</span></dt>
+        <dd>
+            <span>{{vm.workDay.hoursApproved || false}}</span>
+        </dd>
+        <dt><span>Expenses</span></dt>
+        <dd>
+            <span>{{vm.workDay.expenses || 0}}</span>
+        </dd>
+        <dt><span>Expenses Approved</span></dt>
+        <dd>
+            <span>{{vm.workDay.expensesApproved || false}}</span>
         </dd>
     </dl>
 
@@ -44,7 +44,7 @@
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
 
-    <button type="button" ui-sref="work-day-detail.edit({id:vm.workDay.id})" class="btn btn-primary">
+    <button type="button" ui-sref="work-day-detail.edit({id:vm.workDay.id})" class="btn btn-primary" has-authority="ROLE_ADMIN">
         <span class="glyphicon glyphicon-pencil"></span>
         <span class="hidden-sm-down"> Edit</span>
     </button>

@@ -15,7 +15,7 @@
         loadAll();
 
         function loadAll() {
-            WorkDay.query(function(result) {
+            WorkDay.querysubsidiary(function(result) {
                 vm.workDays = result;
                 vm.searchQuery = null;
             });

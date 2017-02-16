@@ -10,6 +10,8 @@
     function User ($resource) {
         var service = $resource('api/users/:login', {}, {
             'query': {method: 'GET', isArray: true},
+            'querycurrent': {method: 'GET', url: 'api/users/current', isArray: true},
+            'querysubsidiary': {method: 'GET', url: 'api/users/subsidiary', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

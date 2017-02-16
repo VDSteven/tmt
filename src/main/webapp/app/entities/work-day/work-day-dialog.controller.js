@@ -15,7 +15,7 @@
         vm.datePickerOpenStatus = {};
         vm.openCalendar = openCalendar;
         vm.save = save;
-        vm.users = User.query();
+        vm.users = User.querysubsidiary();
         vm.projects = Project.query();
 
         $timeout(function (){

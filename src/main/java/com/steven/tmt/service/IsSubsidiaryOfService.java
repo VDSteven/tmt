@@ -17,7 +17,7 @@ import java.util.List;
 public class IsSubsidiaryOfService {
 
     private final Logger log = LoggerFactory.getLogger(IsSubsidiaryOfService.class);
-    
+
     private final IsSubsidiaryOfRepository isSubsidiaryOfRepository;
 
     public IsSubsidiaryOfService(IsSubsidiaryOfRepository isSubsidiaryOfRepository) {
@@ -38,7 +38,7 @@ public class IsSubsidiaryOfService {
 
     /**
      *  Get all the isSubsidiaryOfs.
-     *  
+     *
      *  @return the list of entities
      */
     @Transactional(readOnly = true)
@@ -70,5 +70,18 @@ public class IsSubsidiaryOfService {
     public void delete(Long id) {
         log.debug("Request to delete IsSubsidiaryOf : {}", id);
         isSubsidiaryOfRepository.delete(id);
+    }
+
+    /**
+     *  Get all the isSubsidiaryOfs where the current user is subsidiary.
+     *
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<IsSubsidiaryOf> findBySubsidiaryIsCurrentUser() {
+        log.debug("Request to get all IsSubsidiaryOfs");
+        List<IsSubsidiaryOf> result = isSubsidiaryOfRepository.findBySubsidiaryIsCurrentUser();
+
+        return result;
     }
 }

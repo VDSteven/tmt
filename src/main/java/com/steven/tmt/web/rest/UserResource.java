@@ -5,6 +5,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.steven.tmt.domain.User;
 import com.steven.tmt.repository.UserRepository;
 import com.steven.tmt.security.AuthoritiesConstants;
+import com.steven.tmt.security.SecurityUtils;
 import com.steven.tmt.service.MailService;
 import com.steven.tmt.service.UserService;
 import com.steven.tmt.service.dto.UserDTO;
@@ -181,5 +182,30 @@ public class UserResource {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
         return ResponseEntity.ok().headers(HeaderUtil.createAlert( "A user is deleted with identifier " + login, login)).build();
+    }
+
+    /**
+     * GET  /users : get all users where current user is subsidiary
+     *
+     * @return List of Users
+     */
+    @GetMapping("/users/subsidiary")
+    @Timed
+    public List<User> getAllSubsidiaryUsers() {
+        return userService.getAllSubsidiaryUsers();
+    }
+
+    /**
+     * GET  /users : get current user
+     *
+     * @return Current User
+     */
+    @GetMapping("/users/current")
+    @Timed
+    public List<User> getCurrentUser() {
+        List<User> users = new ArrayList<>();
+        users.add(userService.getUserWithAuthorities());
+
+        return users;
     }
 }

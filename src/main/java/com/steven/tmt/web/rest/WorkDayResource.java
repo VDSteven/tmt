@@ -26,7 +26,7 @@ public class WorkDayResource {
     private final Logger log = LoggerFactory.getLogger(WorkDayResource.class);
 
     private static final String ENTITY_NAME = "workDay";
-        
+
     private final WorkDayService workDayService;
 
     public WorkDayResource(WorkDayService workDayService) {
@@ -115,4 +115,15 @@ public class WorkDayResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
+    /**
+     * GET  /work-days : get all the workDays for current user and user where he is subsidiary.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of workDays in body
+     */
+    @GetMapping("/work-days/subsidiary")
+    @Timed
+    public List<WorkDay> getAllWorkDaysForSubsidiary() {
+        log.debug("REST request to get all WorkDays by subsidiary");
+        return workDayService.findAllBySubsidiary();
+    }
 }
