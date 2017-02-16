@@ -26,7 +26,7 @@ public class IsSubsidiaryOfResource {
     private final Logger log = LoggerFactory.getLogger(IsSubsidiaryOfResource.class);
 
     private static final String ENTITY_NAME = "isSubsidiaryOf";
-        
+
     private final IsSubsidiaryOfService isSubsidiaryOfService;
 
     public IsSubsidiaryOfResource(IsSubsidiaryOfService isSubsidiaryOfService) {
@@ -47,6 +47,11 @@ public class IsSubsidiaryOfResource {
         if (isSubsidiaryOf.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new isSubsidiaryOf cannot already have an ID")).body(null);
         }
+
+        if (isSubsidiaryOfService.findOneByHeadAndEmployee(isSubsidiaryOf.getSubsidiary(), isSubsidiaryOf.getEmployee()) != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "uniqueconstraint", "This combination of subsidiary and employee already exists.")).body(null);
+        }
+
         IsSubsidiaryOf result = isSubsidiaryOfService.save(isSubsidiaryOf);
         return ResponseEntity.created(new URI("/api/is-subsidiary-ofs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))

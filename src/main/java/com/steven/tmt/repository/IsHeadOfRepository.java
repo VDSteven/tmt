@@ -2,6 +2,7 @@ package com.steven.tmt.repository;
 
 import com.steven.tmt.domain.IsHeadOf;
 
+import com.steven.tmt.domain.User;
 import org.springframework.data.jpa.repository.*;
 
 import java.util.List;
@@ -18,4 +19,5 @@ public interface IsHeadOfRepository extends JpaRepository<IsHeadOf,Long> {
     @Query("select isHeadOf from IsHeadOf isHeadOf where isHeadOf.employee.login = ?#{principal.username}")
     List<IsHeadOf> findByEmployeeIsCurrentUser();
 
+    IsHeadOf findOneByHeadAndEmployee(User head, User employee);
 }

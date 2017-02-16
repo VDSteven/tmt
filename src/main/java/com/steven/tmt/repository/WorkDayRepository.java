@@ -4,6 +4,7 @@ import com.steven.tmt.domain.WorkDay;
 
 import org.springframework.data.jpa.repository.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -30,4 +31,6 @@ public interface WorkDayRepository extends JpaRepository<WorkDay,Long> {
     List<Object[]> findByYearAndUserIdAndProjectId(int year, Long userId, Long projectId);
 
     List<WorkDay> findByUserIdInAndHoursApprovedOrExpensesApproved(List<Long> userIds, boolean b, boolean b1);
+
+    WorkDay findOneByUserIdAndProjectIdAndDay(Long userId, Long projectId, LocalDate day);
 }

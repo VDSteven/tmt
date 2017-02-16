@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -136,5 +137,9 @@ public class WorkDayService {
         List<WorkDay> result = workDayRepository.findByUserIdInAndHoursApprovedOrExpensesApproved(userIds, false, false);
 
         return result;
+    }
+
+    public WorkDay findOneByUserIdAndProjectIdAndDay(Long userId, Long projectId, LocalDate day) {
+        return workDayRepository.findOneByUserIdAndProjectIdAndDay(userId, projectId, day);
     }
 }

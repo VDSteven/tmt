@@ -1,6 +1,7 @@
 package com.steven.tmt.service;
 
 import com.steven.tmt.domain.IsSubsidiaryOf;
+import com.steven.tmt.domain.User;
 import com.steven.tmt.repository.IsSubsidiaryOfRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,5 +84,9 @@ public class IsSubsidiaryOfService {
         List<IsSubsidiaryOf> result = isSubsidiaryOfRepository.findBySubsidiaryIsCurrentUser();
 
         return result;
+    }
+
+    public IsSubsidiaryOf findOneByHeadAndEmployee(User subsidiary, User employee) {
+        return isSubsidiaryOfRepository.findOneBySubsidiaryAndEmployee(subsidiary, employee);
     }
 }

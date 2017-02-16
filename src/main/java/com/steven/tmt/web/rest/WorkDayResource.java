@@ -48,6 +48,10 @@ public class WorkDayResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new workDay cannot already have an ID")).body(null);
         }
 
+        if (workDayService.findOneByUserIdAndProjectIdAndDay(workDay.getUser().getId(), workDay.getProject().getId(), workDay.getDay()) != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "uniquecontraint", "A workDay already exists with this combination of employee, project and day.")).body(null);
+        }
+
         /* Set null booleans to false */
         if (workDay.getHoliday() == null) {
             workDay.setIsHoliday(false);

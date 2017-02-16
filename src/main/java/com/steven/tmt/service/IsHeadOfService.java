@@ -1,6 +1,7 @@
 package com.steven.tmt.service;
 
 import com.steven.tmt.domain.IsHeadOf;
+import com.steven.tmt.domain.User;
 import com.steven.tmt.repository.IsHeadOfRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,5 +84,9 @@ public class IsHeadOfService {
         List<IsHeadOf> result = isHeadOfRepository.findByHeadIsCurrentUser();
 
         return result;
+    }
+
+    public IsHeadOf findOneByHeadAndEmployee(User head, User employee) {
+        return isHeadOfRepository.findOneByHeadAndEmployee(head, employee);
     }
 }

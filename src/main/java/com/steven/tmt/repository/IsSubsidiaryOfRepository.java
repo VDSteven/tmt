@@ -2,6 +2,7 @@ package com.steven.tmt.repository;
 
 import com.steven.tmt.domain.IsSubsidiaryOf;
 
+import com.steven.tmt.domain.User;
 import org.springframework.data.jpa.repository.*;
 
 import java.util.List;
@@ -18,4 +19,5 @@ public interface IsSubsidiaryOfRepository extends JpaRepository<IsSubsidiaryOf,L
     @Query("select isSubsidiaryOf from IsSubsidiaryOf isSubsidiaryOf where isSubsidiaryOf.employee.login = ?#{principal.username}")
     List<IsSubsidiaryOf> findByEmployeeIsCurrentUser();
 
+    IsSubsidiaryOf findOneBySubsidiaryAndEmployee(User subsidiary, User employee);
 }

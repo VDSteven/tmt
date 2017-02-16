@@ -26,7 +26,7 @@ public class IsHeadOfResource {
     private final Logger log = LoggerFactory.getLogger(IsHeadOfResource.class);
 
     private static final String ENTITY_NAME = "isHeadOf";
-        
+
     private final IsHeadOfService isHeadOfService;
 
     public IsHeadOfResource(IsHeadOfService isHeadOfService) {
@@ -47,6 +47,11 @@ public class IsHeadOfResource {
         if (isHeadOf.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new isHeadOf cannot already have an ID")).body(null);
         }
+
+        if (isHeadOfService.findOneByHeadAndEmployee(isHeadOf.getHead(), isHeadOf.getEmployee()) != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "uniqueconstraint", "This combination of head and employee already exists.")).body(null);
+        }
+
         IsHeadOf result = isHeadOfService.save(isHeadOf);
         return ResponseEntity.created(new URI("/api/is-head-ofs/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
