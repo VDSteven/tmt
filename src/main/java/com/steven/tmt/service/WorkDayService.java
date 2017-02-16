@@ -103,6 +103,7 @@ public class WorkDayService {
         for (IsSubsidiaryOf isSubsidiaryOf : isSubsidiaryOfs) {
             userIds.add(isSubsidiaryOf.getEmployee().getId());
         }
+        userIds = userIds.stream().distinct().collect(Collectors.toList());
 
         List<WorkDay> result = workDayRepository.findByUserIdIn(userIds);
 

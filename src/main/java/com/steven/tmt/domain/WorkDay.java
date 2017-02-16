@@ -79,6 +79,19 @@ public class WorkDay implements Serializable {
         this.day = day;
     }
 
+    public Boolean getHoursApproved() {
+        return hoursApproved;
+    }
+
+    public Boolean getExpensesApproved() {
+        return expensesApproved;
+    }
+
+    public Boolean getHoliday() {
+        return isHoliday;
+
+    }
+
     public Boolean isIsHoliday() {
         return isHoliday;
     }

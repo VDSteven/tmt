@@ -267,6 +267,7 @@ public class UserService {
         for (IsSubsidiaryOf isSubsidiaryOf : isSubsidiaryOfs) {
             users.add(isSubsidiaryOf.getEmployee());
         }
+        users = users.stream().distinct().collect(Collectors.toList());
 
         return users;
     }
