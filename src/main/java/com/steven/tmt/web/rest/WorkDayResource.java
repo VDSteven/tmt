@@ -47,6 +47,10 @@ public class WorkDayResource {
         if (workDay.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new workDay cannot already have an ID")).body(null);
         }
+        if (workDay.isIsHoliday()) {
+            workDay.setHours(Double.valueOf(0));
+            workDay.setExpenses(Double.valueOf(0));
+        }
         WorkDay result = workDayService.save(workDay);
         return ResponseEntity.created(new URI("/api/work-days/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
