@@ -1,6 +1,7 @@
 package com.steven.tmt.service;
 
 import com.steven.tmt.domain.Authority;
+import com.steven.tmt.domain.IsHeadOf;
 import com.steven.tmt.domain.IsSubsidiaryOf;
 import com.steven.tmt.domain.User;
 import com.steven.tmt.repository.AuthorityRepository;
@@ -23,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Service class for managing users.
@@ -43,18 +45,22 @@ public class UserService {
 
     private final IsSubsidiaryOfService isSubsidiaryOfService;
 
+    private final IsHeadOfService isHeadOfService;
+
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
         PersistentTokenRepository persistentTokenRepository,
         AuthorityRepository authorityRepository,
-        IsSubsidiaryOfService isSubsidiaryOfService)
+        IsSubsidiaryOfService isSubsidiaryOfService,
+        IsHeadOfService isHeadOfService)
     {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.persistentTokenRepository = persistentTokenRepository;
         this.authorityRepository = authorityRepository;
         this.isSubsidiaryOfService = isSubsidiaryOfService;
+        this.isHeadOfService = isHeadOfService;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -266,6 +272,21 @@ public class UserService {
         users.add(currentUser.get());
         for (IsSubsidiaryOf isSubsidiaryOf : isSubsidiaryOfs) {
             users.add(isSubsidiaryOf.getEmployee());
+        }
+        users = users.stream().distinct().collect(Collectors.toList());
+
+        return users;
+    }
+
+    @Transactional(readOnly = true)
+    public List<User> getAllHeadUsers() {
+        Optional<User> currentUser = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+        List<IsHeadOf> isHeadOfs = isHeadOfService.findByHeadIsCurrentUser();
+
+        List<User> users = new ArrayList<>();
+        users.add(currentUser.get());
+        for (IsHeadOf isHeadOf : isHeadOfs) {
+            users.add(isHeadOf.getEmployee());
         }
         users = users.stream().distinct().collect(Collectors.toList());
 

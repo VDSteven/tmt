@@ -1,5 +1,6 @@
 package com.steven.tmt.service;
 
+import com.steven.tmt.domain.IsHeadOf;
 import com.steven.tmt.domain.IsSubsidiaryOf;
 import com.steven.tmt.domain.User;
 import com.steven.tmt.domain.WorkDay;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing WorkDay.
@@ -27,15 +29,19 @@ public class WorkDayService {
 
     private final IsSubsidiaryOfService isSubsidiaryOfService;
 
+    private final IsHeadOfService isHeadOfService;
+
     private final UserService userService;
 
     public WorkDayService(
         WorkDayRepository workDayRepository,
         IsSubsidiaryOfService isSubsidiaryOfService,
+        IsHeadOfService isHeadOfService,
         UserService userService)
     {
         this.workDayRepository = workDayRepository;
         this.isSubsidiaryOfService = isSubsidiaryOfService;
+        this.isHeadOfService = isHeadOfService;
         this.userService = userService;
     }
 
@@ -93,8 +99,8 @@ public class WorkDayService {
      *  @return the list of entities
      */
     @Transactional(readOnly = true)
-    public List<WorkDay> findAllBySubsidiary() {
-        log.debug("Request to get all WorkDays by subsidiary");
+    public List<WorkDay> findAllForSubsidiary() {
+        log.debug("Request to get all WorkDays for subsidiary");
         Optional<User> currentUser = userService.getUserWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin());
         List<IsSubsidiaryOf> isSubsidiaryOfs = isSubsidiaryOfService.findBySubsidiaryIsCurrentUser();
 
@@ -106,6 +112,28 @@ public class WorkDayService {
         userIds = userIds.stream().distinct().collect(Collectors.toList());
 
         List<WorkDay> result = workDayRepository.findByUserIdIn(userIds);
+
+        return result;
+    }
+
+    /**
+     *  Get all the workDays for current logged in user and users where he is head.
+     *
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<WorkDay> findAllForHead() {
+        log.debug("Request to get all WorkDays for head");
+        Optional<User> currentUser = userService.getUserWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin());
+        List<IsHeadOf> isHeadOfs = isHeadOfService.findByHeadIsCurrentUser();
+
+        List<Long> userIds = new ArrayList<>();
+        for (IsHeadOf isHeadOf : isHeadOfs) {
+            userIds.add(isHeadOf.getEmployee().getId());
+        }
+        userIds = userIds.stream().distinct().collect(Collectors.toList());
+
+        List<WorkDay> result = workDayRepository.findByUserIdInAndHoursApprovedOrExpensesApproved(userIds, false, false);
 
         return result;
     }

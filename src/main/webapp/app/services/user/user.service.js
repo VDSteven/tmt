@@ -12,6 +12,7 @@
             'query': {method: 'GET', isArray: true},
             'querycurrent': {method: 'GET', url: 'api/users/current', isArray: true},
             'querysubsidiary': {method: 'GET', url: 'api/users/subsidiary', isArray: true},
+            'queryhead': {method: 'GET', url: 'api/users/head', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

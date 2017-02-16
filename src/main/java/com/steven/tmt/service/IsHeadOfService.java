@@ -17,7 +17,7 @@ import java.util.List;
 public class IsHeadOfService {
 
     private final Logger log = LoggerFactory.getLogger(IsHeadOfService.class);
-    
+
     private final IsHeadOfRepository isHeadOfRepository;
 
     public IsHeadOfService(IsHeadOfRepository isHeadOfRepository) {
@@ -38,7 +38,7 @@ public class IsHeadOfService {
 
     /**
      *  Get all the isHeadOfs.
-     *  
+     *
      *  @return the list of entities
      */
     @Transactional(readOnly = true)
@@ -70,5 +70,18 @@ public class IsHeadOfService {
     public void delete(Long id) {
         log.debug("Request to delete IsHeadOf : {}", id);
         isHeadOfRepository.delete(id);
+    }
+
+    /**
+     *  Get all the isHeadOfs where the current user is head.
+     *
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<IsHeadOf> findByHeadIsCurrentUser() {
+        log.debug("Request to get all IsHeadOfs");
+        List<IsHeadOf> result = isHeadOfRepository.findByHeadIsCurrentUser();
+
+        return result;
     }
 }

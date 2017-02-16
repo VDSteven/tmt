@@ -357,3 +357,7 @@ custom changes
         }
     }
 }
+
+*[readonly] {
+    cursor: not-allowed;
+}

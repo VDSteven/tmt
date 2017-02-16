@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/is-head-of',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: ['ROLE_ADMIN'],
                 pageTitle: 'IsHeadOfs'
             },
             views: {

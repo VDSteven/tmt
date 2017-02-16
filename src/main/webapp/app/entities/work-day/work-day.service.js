@@ -12,6 +12,7 @@
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
             'querysubsidiary': { method: 'GET', url: 'api/work-days/subsidiary', isArray: true},
+            'queryhead': {method: 'GET', url: 'api/work-days/head', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

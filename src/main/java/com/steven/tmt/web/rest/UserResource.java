@@ -208,4 +208,15 @@ public class UserResource {
 
         return users;
     }
+
+    /**
+     * GET  /users : get all users where current user is head
+     *
+     * @return List of Users
+     */
+    @GetMapping("/users/head")
+    @Timed
+    public List<User> getAllHeadUsers() {
+        return userService.getAllHeadUsers();
+    }
 }

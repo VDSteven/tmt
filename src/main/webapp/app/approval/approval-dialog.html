@@ -1,0 +1,115 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myWorkDayLabel">Approve hours and expenses of the work day</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   ng-model="vm.workDay.id" readonly />
+        </div>
+        <div class="form-group">
+            <label for="field_user">Employee</label>
+            <select class="form-control" id="field_user" name="user" ng-model="vm.workDay.user" ng-options="user as user.login for user in vm.users track by user.id" readonly required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.user.$invalid">
+            <p class="help-block"
+               ng-show="editForm.user.$error.required">
+                This field is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="field_project">Project</label>
+            <select class="form-control" id="field_project" name="project" ng-model="vm.workDay.project" ng-options="project as project.name for project in vm.projects track by project.id" readonly required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.project.$invalid">
+            <p class="help-block"
+               ng-show="editForm.project.$error.required">
+                This field is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_day">Day</label>
+            <div class="input-group">
+                <input id="field_day" type="text" class="form-control" name="day" uib-datepicker-popup="{{dateformat}}" ng-model="vm.workDay.day" is-open="vm.datePickerOpenStatus.day"
+                       readonly required/>
+                <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="vm.openCalendar('day')"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+            </div>
+            <div ng-show="editForm.day.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.day.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_isHoliday">Is Holiday</label>
+            <input type="checkbox" class="form-control" name="isHoliday" id="field_isHoliday"
+                   ng-model="vm.workDay.isHoliday" readonly
+            />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_hours">Hours</label>
+            <input type="number" class="form-control" name="hours" id="field_hours"
+                   ng-model="vm.workDay.hours"
+                   min="0" readonly/>
+            <div ng-show="editForm.hours.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.hours.$error.min" translate-value-min="0">
+                    This field should be at least 0.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.hours.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_hoursApproved">Hours Approved</label>
+            <input type="checkbox" class="form-control" name="hoursApproved" id="field_hoursApproved"
+                   ng-model="vm.workDay.hoursApproved"
+            />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_expenses">Expenses</label>
+            <input type="number" class="form-control" name="expenses" id="field_expenses"
+                   ng-model="vm.workDay.expenses"
+                   min="0" readonly/>
+            <div ng-show="editForm.expenses.$invalid">
+                <p class="help-block"
+                   ng-show="editForm.expenses.$error.min" translate-value-min="0">
+                    This field should be at least 0.
+                </p>
+                <p class="help-block"
+                   ng-show="editForm.expenses.$error.number">
+                    This field should be a number.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_expensesApproved">Expenses Approved</label>
+            <input type="checkbox" class="form-control" name="expensesApproved" id="field_expensesApproved"
+                   ng-model="vm.workDay.expensesApproved"
+            />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>

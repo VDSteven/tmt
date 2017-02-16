@@ -143,7 +143,19 @@ public class WorkDayResource {
     @GetMapping("/work-days/subsidiary")
     @Timed
     public List<WorkDay> getAllWorkDaysForSubsidiary() {
-        log.debug("REST request to get all WorkDays by subsidiary");
-        return workDayService.findAllBySubsidiary();
+        log.debug("REST request to get all WorkDays for subsidiary");
+        return workDayService.findAllForSubsidiary();
+    }
+
+    /**
+     * GET  /work-days : get all the workDays for current user and user where he is head.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of workDays in body
+     */
+    @GetMapping("/work-days/head")
+    @Timed
+    public List<WorkDay> getAllWorkDaysForHead() {
+        log.debug("REST request to get all WorkDays for head");
+        return workDayService.findAllForHead();
     }
 }
