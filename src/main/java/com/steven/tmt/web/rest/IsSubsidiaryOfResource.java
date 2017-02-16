@@ -120,4 +120,16 @@ public class IsSubsidiaryOfResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
+    /**
+     * GET  /is-subsidiary-ofs : get all the isSubsidiaryOfs for current user.
+     *
+     * @return the ResponseEntity with status 200 (OK) and the list of isSubsidiaryOfs in body
+     */
+    @GetMapping("/is-subsidiary-ofs/current")
+    @Timed
+    public List<IsSubsidiaryOf> getAllIsSubsidiaryOfsForCurrentUser() {
+        log.debug("REST request to get all IsSubsidiaryOfs for current user");
+        return isSubsidiaryOfService.findByEmployeeIsCurrentUser();
+    }
+
 }

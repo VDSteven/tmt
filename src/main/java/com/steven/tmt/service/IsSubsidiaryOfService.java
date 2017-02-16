@@ -80,8 +80,21 @@ public class IsSubsidiaryOfService {
      */
     @Transactional(readOnly = true)
     public List<IsSubsidiaryOf> findBySubsidiaryIsCurrentUser() {
-        log.debug("Request to get all IsSubsidiaryOfs");
+        log.debug("Request to get all IsSubsidiaryOfs current user is subsidiary");
         List<IsSubsidiaryOf> result = isSubsidiaryOfRepository.findBySubsidiaryIsCurrentUser();
+
+        return result;
+    }
+
+    /**
+     *  Get all the isSubsidiaryOfs where the current user is employee.
+     *
+     *  @return the list of entities
+     */
+    @Transactional(readOnly = true)
+    public List<IsSubsidiaryOf> findByEmployeeIsCurrentUser() {
+        log.debug("Request to get all IsSubsidiaryOfs where current user is employee");
+        List<IsSubsidiaryOf> result = isSubsidiaryOfRepository.findByEmployeeIsCurrentUser();
 
         return result;
     }

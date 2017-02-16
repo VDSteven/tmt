@@ -11,6 +11,7 @@
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
+            'querycurrent': {method: 'GET', url: 'api/is-subsidiary-ofs/current', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

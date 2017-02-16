@@ -15,7 +15,7 @@
         loadAll();
 
         function loadAll() {
-            IsSubsidiaryOf.query(function(result) {
+            IsSubsidiaryOf.querycurrent(function(result) {
                 vm.isSubsidiaryOfs = result;
                 vm.searchQuery = null;
             });
