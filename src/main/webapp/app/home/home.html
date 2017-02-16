@@ -4,8 +4,7 @@
             <span class="hipster img-responsive img-rounded"></span>
         </div>
         <div class="col-md-8">
-            <h1>Welcome, Java Hipster!</h1>
-            <p class="lead">This is your homepage</p>
+            <h1>Welcome to the Time Management Tool built with Java Hipster!</h1>
 
             <div ng-switch="vm.isAuthenticated()">
                 <div class="alert alert-success" ng-switch-when="true">
@@ -13,7 +12,9 @@
                 </div>
 
                 <div class="alert alert-warning" ng-switch-when="false">
-                    If you want to <a class="alert-link" href="" ng-click="vm.login()">sign in</a>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
+                    If you want to manage your time and expenses, please <a class="alert-link" href="" ng-click="vm.login()">sign in</a>.
+                    <br/>
+                    Default accounts - Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").
                 </div>
 
                 <div class="alert alert-warning" ng-switch-when="false">
@@ -22,20 +23,21 @@
             </div>
 
             <p>
-                If you have any question on JHipster:
+                The different features of the time management tool can only be accessed by logged in users.
+            </p>
+
+            <p>
+                Once logged in a tab labelled "Time Management Tool" will be available in the navigation bar. Here is a description of the the different features:
             </p>
 
             <ul>
-                <li><a href="http://jhipster.github.io/" target="_blank">JHipster homepage</a></li>
-                <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank">JHipster on Stack Overflow</a></li>
-                <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank">JHipster bug tracker</a></li>
-                <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank">JHipster public chat room</a></li>
-                <li><a href="https://twitter.com/java_hipster" target="_blank" >follow @java_hipster on Twitter</a></li>
+                <li>Projects: a user can view/add/edit projects</li>
+                <li>Manage Time: a user can add his data or the data of users he/she is subsidiary of</li>
+                <li>Statistics: a user can view monthly statistics of holidays, hours and expenses for different users and projects</li>
+                <li>Approve entries: a user can approve the hours and expenses of users he/she is head of</li>
+                <li>Set subsidiary: a user can define one or more subsidiaries for himself/herself</li>
+                <li>Set head(only admin account): an admin can define which user is head of which other users</li>
             </ul>
-
-            <p>
-             <span>If you like JHipster, don't forget to give us a star on </span>&nbsp;<a href="https://github.com/jhipster/generator-jhipster" target="_blank">Github</a>!
-            </p>
         </div>
     </div>
 </div>
