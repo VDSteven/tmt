@@ -2,6 +2,7 @@ package com.steven.tmt.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -28,20 +29,25 @@ public class WorkDay implements Serializable {
     private LocalDate day;
 
     @Column(name = "is_holiday")
+    @ColumnDefault("false")
     private Boolean isHoliday;
 
     @DecimalMin(value = "0")
     @Column(name = "hours")
+    @ColumnDefault("0.0")
     private Double hours;
 
     @Column(name = "hours_approved")
+    @ColumnDefault("false")
     private Boolean hoursApproved;
 
     @DecimalMin(value = "0")
     @Column(name = "expenses")
+    @ColumnDefault("0.0")
     private Double expenses;
 
     @Column(name = "expenses_approved")
+    @ColumnDefault("false")
     private Boolean expensesApproved;
 
     @ManyToOne(optional = false)
