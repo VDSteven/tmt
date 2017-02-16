@@ -1,0 +1,23 @@
+Time protocol:
+- Total time 4h
+
+- Requirements
+	1) Entry mask for employees per project
+	2) Monthly statistic per employee and project
+	3) Multi user access, a user can define a subsidiary that enters the hours for him 
+	4) Approval process of the hours through a head of the employee, monthly or weekly 
+	5) Statistics about holidays, worked hours and expenses for each employee 
+	6) Exactly the same as above but for expenses 
+	7) Export the expenses into excel sheets 
+	8) PDF of the scanned bills for each employee
+
+- Before starting
+	- Getting to know jHipster
+	- Planned work process
+	
+- Mini project
+	- 30min DB schema, entity generation, unique contraints, default values
+	- 50min Requirements 1) and 3), also added parts for requirements 5) and 6) (entry mask for holidays and expenses)
+	- 60min Requirements 2) and 5), also added parts for requirement 6) (stats of expenses)
+	- 40min Requirement 4), also completes Requirement 6)
+	- 60min Improvements, bugfixes, error handling
