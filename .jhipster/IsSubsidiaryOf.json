@@ -1,0 +1,33 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "subsidiary",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "isSubsidiaryOf"
+        },
+        {
+            "relationshipName": "employee",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "relationshipValidateRules": [
+                "required"
+            ],
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "isSubsidiaryOf"
+        }
+    ],
+    "fields": [],
+    "changelogDate": "20170216122931",
+    "dto": "no",
+    "service": "serviceClass",
+    "entityTableName": "is_subsidiary_of",
+    "pagination": "no"
+}

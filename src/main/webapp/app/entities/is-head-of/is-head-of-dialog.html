@@ -1,0 +1,50 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myIsHeadOfLabel">Create or edit a Is Head Of</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.isHeadOf.id">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.isHeadOf.id" readonly />
+        </div>
+
+        <div class="form-group">
+            <label for="field_head">Head</label>
+            <select class="form-control" id="field_head" name="head" ng-model="vm.isHeadOf.head" ng-options="user as user.login for user in vm.users track by user.id" required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.head.$invalid">
+            <p class="help-block"
+                ng-show="editForm.head.$error.required">
+                This field is required.
+            </p>
+        </div>
+        <div class="form-group">
+            <label for="field_employee">Employee</label>
+            <select class="form-control" id="field_employee" name="employee" ng-model="vm.isHeadOf.employee" ng-options="user as user.login for user in vm.users track by user.id" required>
+                <option value=""></option>
+            </select>
+        </div>
+        <div ng-show="editForm.employee.$invalid">
+            <p class="help-block"
+                ng-show="editForm.employee.$error.required">
+                This field is required.
+            </p>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
